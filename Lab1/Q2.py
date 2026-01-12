@@ -51,20 +51,20 @@ def print_tree(tree):
 
 # Graph definition
 graph = {
-    "Raj": ["Sunil", "Neha_1", "Priya"],
-    "Sunil": ["Raj", "Akash", "Sneha", "Maya"],
-    "Akash": ["Sunil", "Priya", "Neha_1"],
-    "Priya": ["Raj", "Akash", "Aarav", "Neha_1"],
-    "Neha_1": ["Raj", "Akash", "Priya", "Sneha", "Rahul", "Aarav"],
-    "Sneha": ["Sunil", "Rahul", "Neha_1"],
-    "Maya": ["Sunil", "Rahul", "Arjun_1"],
-    "Rahul": ["Sneha", "Maya", "Pooja", "Arjun_2", "Neha_2", "Neha_1"],
-    "Arjun_1": ["Maya", "Pooja"],
-    "Pooja": ["Arjun_1", "Rahul", "Arjun_2"],
-    "Arjun_2": ["Pooja", "Rahul", "Aarav", "Neha_2"],
-    "Neha_2": ["Rahul", "Aarav", "Arjun_2"],
-    "Aarav": ["Priya", "Neha_1", "Neha_2", "Arjun_2"]
-}
+        "Raj": ["Sunil", "Neha_1"],
+        "Sunil": ["Raj", "Akash", "Sneha", "Maya"],
+        "Akash": ["Sunil", "Priya"],
+        "Priya": ["Raj", "Akash", "Aarav"],
+        "Neha_1": ["Raj", "Akash", "Sneha", "Aarav"],
+        "Sneha": ["Sunil", "Rahul", "Neha_1"],
+        "Maya": ["Sunil", "Rahul", "Arjun_1"],
+        "Rahul": ["Sneha", "Maya", "Pooja", "Arjun_2", "Neha_2", "Neha_1"],
+        "Arjun_1": ["Maya", "Pooja"],
+        "Pooja": ["Arjun_1", "Rahul", "Arjun_2"],
+        "Arjun_2": ["Rahul", "Aarav", "Neha_2"],
+        "Neha_2": ["Rahul", "Aarav", "Arjun_2", "Neha_1", "Priya"],
+        "Aarav": ["Neha_1", "Neha_2", "Arjun_2"]
+    }
 
 # Generate and print BFS tree starting from "Raj"
 start_node = "Raj"
