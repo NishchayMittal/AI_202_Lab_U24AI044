@@ -60,3 +60,10 @@ print(f"BFS found {len(bfs)} unique paths.\n")
 print("Possible Paths:")
 for i, (path, cost) in enumerate(bfs[:]):
     print(f"Path {i+1}: {' -> '.join(path)} | Total Cost: {cost} miles")
+
+
+print("----------")
+
+
+for i, (path, cost) in enumerate(dfs[:]):
+    print(f"Path {i+1}: {' -> '.join(path)} | Total Cost: {cost} miles")
