@@ -1,0 +1,105 @@
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        return self.items.pop(0)
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+
+
+goal = (0, 1, 2,
+        3, 4, 5,
+        6, 7, 8)
+
+start = (7, 2, 4,
+         5, 0, 6,
+         8, 3, 1)
+
+
+def notmove(state):
+    moveup = movel = mover = moved = True
+
+    for i in range(3):
+        if state[i] == 0:
+            moveup = False
+
+    for i in (0, 3, 6):
+        if state[i] == 0:
+            movel = False
+
+    for i in (2, 5, 8):
+        if state[i] == 0:
+            mover = False
+
+    for i in (6, 7, 8):
+        if state[i] == 0:
+            moved = False
+
+    return moveup, movel, moved, mover
+
+
+def BFS(start, goal):
+    queue = Queue()
+    queue.enqueue(start)
+
+    visited = set()
+    visited.add(start)   
+
+    count = 0
+
+    while not queue.is_empty():
+        curr = queue.dequeue()
+        count += 1
+
+        if curr == goal:
+            return count
+
+        moveu, movel, moved, mover = notmove(curr)
+        zero = curr.index(0)
+
+        if mover:
+            new = list(curr)
+            new[zero], new[zero + 1] = new[zero + 1], new[zero]
+            new = tuple(new)
+            if new not in visited:
+                visited.add(new)
+                queue.enqueue(new)
+
+
+        if moveu:
+            new = list(curr)
+            new[zero], new[zero - 3] = new[zero - 3], new[zero]
+            new = tuple(new)
+            if new not in visited:
+                visited.add(new)
+                queue.enqueue(new)
+
+        if movel:
+            new = list(curr)
+            new[zero], new[zero - 1] = new[zero - 1], new[zero]
+            new = tuple(new)
+            if new not in visited:
+                visited.add(new)
+                queue.enqueue(new)
+
+        if moved:
+            new = list(curr)
+            new[zero], new[zero + 3] = new[zero + 3], new[zero]
+            new = tuple(new)
+            if new not in visited:
+                visited.add(new)
+                queue.enqueue(new)
+
+        
+    return count
+
+
+states = BFS(start, goal)
+print("Number of states explored:", states)
+
