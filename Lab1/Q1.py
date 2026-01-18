@@ -1,4 +1,16 @@
-from collections import deque
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        return self.items.pop(0)
+
+    def is_empty(self):
+        return len(self.items) == 0
+
 graph = {
     'Syracuse': {'Buffalo': 150, 'Philadelphia': 253, 'New York': 254, 'Boston': 312},
     'Buffalo': {'Syracuse': 150, 'Detroit': 256, 'Cleveland': 189, 'Pittsburgh': 215},
@@ -31,21 +43,22 @@ def DFS(graph,start,end,path=None,cost=0):
                 allp.append(p)
     return allp
 
-def BFS(graph,start,end):
-    queue = deque([(start, [start], 0)])
+def BFS(graph, start, end):
+    queue = Queue()
+    queue.enqueue((start, [start], 0))
     allp = []
 
-    while queue:
-        (curr,path,cost) = queue.popleft()
+    while not queue.is_empty():
+        curr, path, cost = queue.dequeue()
 
-        for adj,val in graph.get(curr,{}).items():
+        for adj, val in graph.get(curr, {}).items():
             if adj not in path:
                 if adj == end:
-                    allp.append((path+[adj],cost+val))
+                    allp.append((path + [adj], cost + val))
                 else:
-                    queue.append((adj,path+[adj],cost + val))
-    return allp
+                    queue.enqueue((adj, path + [adj], cost + val))
 
+    return allp
 start = "Syracuse"
 end = "Chicago"
 

@@ -1,27 +1,37 @@
-from collections import deque
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        return self.items.pop(0)
+
+    def is_empty(self):
+        return len(self.items) == 0
 
 def bfs_tree(graph, start_node):
     visited = set()
-    queue = deque([start_node])
+    queue = Queue()
+    queue.enqueue(start_node)
     visited.add(start_node)
     
     # Dictionary to store the BFS tree (parent -> children)
     tree = {}
     
-    while queue:
-        current = queue.popleft()
+    while not queue.is_empty():
+        current = queue.dequeue()
         
-        # Determine neighbors that haven't been visited yet
         for neighbor in graph[current]:
             if neighbor not in visited:
                 visited.add(neighbor)
-                queue.append(neighbor)
+                queue.enqueue(neighbor)
                 
                 # Add the edge to the tree
                 if current not in tree:
                     tree[current] = []
                 tree[current].append(neighbor)
-    
 
     return tree
 
