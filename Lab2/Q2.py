@@ -43,22 +43,21 @@ def notmove(state):
 
     return moveup, movel, moved, mover
 def DFS(start, goal):
-    stack = [start]
+    stack = [(start, 0)]   # (state, depth)
     visited = set()
     visited.add(start)
 
     count = 0
 
     while stack:
-        curr = stack.pop()
+        curr, depth = stack.pop()
         count += 1
 
         if curr == goal:
-            return count
+            return count, depth   # depth = cost
 
         moveu, movel, moved, mover = notmove(curr)
         zero = curr.index(0)
-
 
         if moveu:
             new = list(curr)
@@ -66,10 +65,7 @@ def DFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                stack.append(new)
-
-        
-        
+                stack.append((new, depth + 1))
 
         if moved:
             new = list(curr)
@@ -77,7 +73,7 @@ def DFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                stack.append(new)
+                stack.append((new, depth + 1))
 
         if movel:
             new = list(curr)
@@ -85,7 +81,7 @@ def DFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                stack.append(new)
+                stack.append((new, depth + 1))
 
         if mover:
             new = list(curr)
@@ -93,9 +89,11 @@ def DFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                stack.append(new)
+                stack.append((new, depth + 1))
 
-        
-    return count
-states = DFS(start, goal)
+    return count, None
+
+states, cost = DFS(start, goal)
+
 print("Number of states explored using DFS:", states)
+print("Cost of solution (depth):", cost)

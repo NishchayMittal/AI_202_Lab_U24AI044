@@ -11,8 +11,6 @@ class Queue:
     def is_empty(self):
         return len(self.items) == 0
 
-
-
 goal = (0, 1, 2,
         3, 4, 5,
         6, 7, 8)
@@ -46,19 +44,19 @@ def notmove(state):
 
 def BFS(start, goal):
     queue = Queue()
-    queue.enqueue(start)
+    queue.enqueue((start, 0))   # (state, depth)
 
     visited = set()
-    visited.add(start)   
+    visited.add(start)
 
     count = 0
 
     while not queue.is_empty():
-        curr = queue.dequeue()
+        curr, depth = queue.dequeue()
         count += 1
 
         if curr == goal:
-            return count
+            return count, depth   # depth = cost
 
         moveu, movel, moved, mover = notmove(curr)
         zero = curr.index(0)
@@ -69,8 +67,7 @@ def BFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                queue.enqueue(new)
-
+                queue.enqueue((new, depth + 1))
 
         if moveu:
             new = list(curr)
@@ -78,7 +75,7 @@ def BFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                queue.enqueue(new)
+                queue.enqueue((new, depth + 1))
 
         if movel:
             new = list(curr)
@@ -86,7 +83,7 @@ def BFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                queue.enqueue(new)
+                queue.enqueue((new, depth + 1))
 
         if moved:
             new = list(curr)
@@ -94,12 +91,12 @@ def BFS(start, goal):
             new = tuple(new)
             if new not in visited:
                 visited.add(new)
-                queue.enqueue(new)
+                queue.enqueue((new, depth + 1))
 
-        
-    return count
+    return count, None
 
 
-states = BFS(start, goal)
+states, cost = BFS(start, goal)
+
 print("Number of states explored:", states)
-
+print("Cost of solution (minimum depth):", cost)
