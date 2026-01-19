@@ -12,7 +12,6 @@ class Queue:
         return len(self.items) == 0
 
 
-# MUST be tuple (ordered)
 goal = (0, 1, 2,
         3, 4, 5,
         6, 7, 8)
@@ -43,7 +42,7 @@ def notmove(state):
 
     return moveup, movel, moved, mover
 def DFS(start, goal):
-    stack = [(start, 0)]   # (state, depth)
+    stack = [(start, 0)]   
     visited = set()
     visited.add(start)
 
@@ -54,8 +53,7 @@ def DFS(start, goal):
         count += 1
 
         if curr == goal:
-            return count, depth   # depth = cost
-
+            return count, depth   
         moveu, movel, moved, mover = notmove(curr)
         zero = curr.index(0)
 
