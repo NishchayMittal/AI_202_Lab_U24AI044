@@ -98,7 +98,6 @@ def BEST_FIRST_SEARCH(problem, start):
     while not frontier.is_empty():
 
         node = frontier.pop()
-        print(node["STATE"],"f =",f(node),"g =", g(node),"h =", h(node))
         explored += 1
 
         if not node["GOALS"]:
