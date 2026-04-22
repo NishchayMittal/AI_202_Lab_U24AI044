@@ -1,4 +1,3 @@
-# ── Replaces itertools.product([False, True], repeat=n) ──────────────────────
 
 def bool_combinations(n):
     """Generate all True/False combinations for n variables (like a truth table)."""
